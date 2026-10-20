@@ -1,0 +1,41 @@
+// OPTIONAL COPY / LOCALIZATION — Customize headings, labels, hints, and status text here.
+// Keep matching keys in every locale and retain English as the fallback in login.js.
+// data-i18n attributes in index.html reference these keys; API error text comes from Soln.
+export const messages = {
+  en: {
+    language: 'Change language', languageName: 'English',
+    title: 'Welcome Back', subtitle: 'Sign in to continue your work and collaboration',
+    codeTitle: 'Check Your Email', codeSubtitle: 'Enter your email and we’ll send you a verification code',
+    setupTitle: 'A Fresh Start', setupSubtitle: 'Set a password to finish signing in to your account',
+    quoteLabel: 'YOUR WORKSPACE', quoteLine1: 'Make Sign-In', quoteLine2: 'Your Own',
+    quoteBody: 'Your brand, colors, and layout. Create a workspace entrance that feels like you.',
+    email: 'Email', emailPlaceholder: 'Enter your email', password: 'Password', passwordPlaceholder: 'Enter your password',
+    code: 'Email verification code', codePlaceholder: '6-digit code', newPassword: 'New password', newPasswordPlaceholder: 'At least 8 characters',
+    signIn: 'Sign In', sendCode: 'Send code', useCode: 'Use email code', usePassword: 'Use password', setPassword: 'Set Password & Continue',
+    codePrompt: 'Prefer a verification code?', passwordPrompt: 'Prefer your password?',
+    rememberEmail: 'Remember email', rememberHint: 'Only your email is remembered on this device.', forgotPassword: 'Forgot Password',
+    showPassword: 'Show password', hidePassword: 'Hide password',
+    loading: 'Loading sign-in details…', signingIn: 'Signing in…', sendingCode: 'Preparing to send the verification code…', codeSent: 'Verification code sent, check your email',
+    retryIn: 'Resend in {seconds}s',
+    sessionExpired: 'This sign-in link has expired, start again from your workspace sign-in entry',
+    requestFailed: 'Unable to complete the request, please try again',
+  },
+  'zh-CN': {
+    language: '切换语言', languageName: '简体中文',
+    title: '欢迎回来', subtitle: '登录工作空间，继续你的业务与协作',
+    codeTitle: '查收你的邮件', codeSubtitle: '输入邮箱，我们将向你发送登录验证码',
+    setupTitle: '新的开始', setupSubtitle: '设置密码，完成账户登录',
+    quoteLabel: '你的业务工作空间', quoteLine1: '让登录', quoteLine2: '更有你的风格',
+    quoteBody: '用你的品牌、配色与布局，打造专属的工作空间入口。',
+    email: '邮箱', emailPlaceholder: '输入你的邮箱', password: '密码', passwordPlaceholder: '输入你的密码',
+    code: '邮件验证码', codePlaceholder: '6 位验证码', newPassword: '新密码', newPasswordPlaceholder: '至少 8 个字符',
+    signIn: '登录', sendCode: '发送验证码', useCode: '使用邮件验证码', usePassword: '使用密码', setPassword: '设置密码并继续',
+    codePrompt: '想用验证码登录？', passwordPrompt: '想用密码登录？',
+    rememberEmail: '记住邮箱', rememberHint: '仅在当前设备保存邮箱，不保存密码。', forgotPassword: '忘记密码',
+    showPassword: '显示密码', hidePassword: '隐藏密码',
+    loading: '正在加载登录信息…', signingIn: '正在登录…', sendingCode: '正在准备发送验证码…', codeSent: '验证码已发送，请查收邮件',
+    retryIn: '{seconds} 秒后重发',
+    sessionExpired: '登录链接已过期，请从工作区登录入口重新发起登录',
+    requestFailed: '请求未能完成，请重试',
+  },
+};

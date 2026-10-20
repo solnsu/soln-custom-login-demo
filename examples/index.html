@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="color-scheme" content="light">
+  <title>欢迎回来 · Soln</title>
+  <!-- OPTIONAL BRANDING: config.faviconUrl in config.js controls the browser tab icon. -->
+  <link id="favicon" rel="icon" href="./assets/favicon-192x192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- SOLN INTEGRATION 9: Display API, verification, and loading feedback as global
+       notifications. Replace these with your application's toast system if desired. -->
+  <div class="global-feedback" aria-live="polite" aria-atomic="true">
+    <p id="status" role="status" hidden></p>
+    <p id="error" role="alert" hidden></p>
+  </div>
+  <!-- OPTIONAL DESIGN: Replace the layout, artwork, and logo with your own brand.
+       Authentication is wired in login.js; visible text is centralized in messages.js. -->
+  <main class="login-shell">
+    <aside class="visual-pane" aria-labelledby="visual-title">
+      <div class="quote-label"><span data-i18n="quoteLabel">你的业务工作空间</span><span class="quote-line"></span></div>
+      <div class="quote-copy">
+        <h1 id="visual-title"><span data-i18n="quoteLine1">让登录</span><span data-i18n="quoteLine2">更有你的风格</span></h1>
+        <p data-i18n="quoteBody">用你的品牌、配色与布局，打造专属的工作空间入口。</p>
+      </div>
+    </aside>
+    <section class="form-pane" aria-labelledby="title">
+      <div class="form-topbar">
+        <a class="brand" href="./index.html" aria-label="Soln">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.727433865 1.49183307A7.5 7.5 0 1 0 14.50816693 4.272566135A2.368421053 2.368421053 0 0 1 11.938290455 6.171408628A4.342105263 4.342105263 0 1 1 9.828591372 4.061709545A2.368421053 2.368421053 0 0 1 11.727433865 1.49183307ZM12.184210526 2.236842105A1.578947368 1.578947368 0 1 0 12.184210526 5.394736842A1.578947368 1.578947368 0 1 0 12.184210526 2.236842105Z"/>
+          </svg>
+          <span id="brand-name">Soln</span>
+        </a>
+        <div class="language-picker">
+          <button id="language" class="language-trigger" type="button" aria-label="切换语言" aria-haspopup="menu" aria-expanded="false" aria-controls="language-menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a18 18 0 0 1 0 18 18 18 0 0 1 0-18Z"/></svg>
+            <span data-i18n="languageName">简体中文</span>
+            <svg class="language-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+          </button>
+          <div id="language-menu" class="language-menu" role="menu" aria-labelledby="language" hidden>
+            <button type="button" role="menuitemradio" data-locale="zh-CN" lang="zh-CN" aria-checked="true" tabindex="-1">简体中文<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button>
+            <button type="button" role="menuitemradio" data-locale="en" lang="en" aria-checked="false" tabindex="-1">English<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8 3 3 7-7"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-content">
+        <header class="form-heading">
+          <h2 id="title" data-i18n="title">欢迎回来</h2>
+          <p id="subtitle" data-i18n="subtitle">登录工作空间，继续你的业务与协作</p>
+        </header>
+        <!-- SOLN INTEGRATION 5: Map your inputs to the values used in login.js.
+             These IDs can change if you update the corresponding selectors/handlers.
+             Keep native validation or equivalent validation in your own components. -->
+        <form id="login-form">
+          <div class="field" id="email-label">
+            <label for="email" data-i18n="email">邮箱</label>
+            <input id="email" type="email" autocomplete="username" required maxlength="320" placeholder="输入你的邮箱" data-i18n-placeholder="emailPlaceholder">
+          </div>
+          <!-- Password mode: email + password -> loginWithPassword(). -->
+          <div class="field" id="password-label">
+            <label for="password" data-i18n="password">密码</label>
+            <div class="password-input">
+              <input id="password" type="password" autocomplete="current-password" required maxlength="1024" placeholder="输入你的密码" data-i18n-placeholder="passwordPlaceholder">
+              <button class="reveal-password" type="button" data-password-target="password" aria-label="显示密码" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m4 3 16 18"/></svg>
+              </button>
+            </div>
+          </div>
+          <!-- Email-code mode: send-code -> sendEmailCode(); submit -> verifyEmailCode().
+               Sending a code is a separate button action, not a form submission. -->
+          <div class="field" id="code-label" hidden>
+            <label for="code" data-i18n="code">邮件验证码</label>
+            <div class="code-input">
+              <input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="6 位验证码" data-i18n-placeholder="codePlaceholder">
+              <button id="send-code" class="send-code" type="button" data-i18n="sendCode">发送验证码</button>
+            </div>
+          </div>
+          <!-- Required setup mode: shown by a set_password result or getContext().
+               Submit the new password through setupPassword() before completing login. -->
+          <div class="field" id="new-password-label" hidden>
+            <label for="new-password" data-i18n="newPassword">新密码</label>
+            <div class="password-input">
+              <input id="new-password" type="password" autocomplete="new-password" minlength="8" maxlength="1024" placeholder="至少 8 个字符" data-i18n-placeholder="newPasswordPlaceholder">
+              <button class="reveal-password" type="button" data-password-target="new-password" aria-label="显示密码" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m4 3 16 18"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-options" id="form-options">
+            <label class="remember-email" title="仅在当前设备保存邮箱，不保存密码。">
+              <input id="remember-email" type="checkbox"><span data-i18n="rememberEmail">记住邮箱</span>
+            </label>
+            <button id="forgot-password" class="text-button" type="button" data-i18n="forgotPassword">忘记密码</button>
+          </div>
+          <!-- SOLN INTEGRATION 7-8: login.js submits the active mode and processes
+               nextStep. Keep this button disabled while the SDK action is pending. -->
+          <button id="submit" class="primary-button" type="submit"><span id="submit-label" data-i18n="signIn">登录</span><span class="button-spinner" aria-hidden="true" hidden></span></button>
+        </form>
+      </div>
+      <footer class="form-footer"><span id="mode-prompt" data-i18n="codePrompt">想用验证码登录？</span> <button id="switch-mode" class="text-button" type="button" data-i18n="useCode">使用邮件验证码</button></footer>
+    </section>
+  </main>
+  <!-- SOLN INTEGRATION 2: Load the integration module once. For static hosting,
+       preserve the examples/ and dist/ directory relationship used by its import.
+       If your site has CSP, allow requests and verification frames to the trusted issuer. -->
+  <script type="module" src="./login.js"></script>
+</body>
+</html>
