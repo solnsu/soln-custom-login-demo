@@ -9,18 +9,19 @@
 
 直接部署时保留 `examples/` 与 `dist/` 的相对目录关系，访问 HTTPS 站点的 `/examples/`。先修改 `examples/config.js` 中的 `issuer`；需要直接访问发起登录时，填写可信工作区的 `workspaceLoginUrl`。完整改造清单见 [`examples/README.md`](examples/README.md)。
 
-## 构建和交付
+## 安装 SDK
 
-本包已提供源码，尚未发布到 npm。在本仓库根目录执行：
+在自己的前端项目中执行：
 
 ```sh
-npm ci
-npm run build
-npm test
-npm pack
+npm i @soln/custom-login-sdk
 ```
 
-租户可以安装交付的 `.tgz`，也可以将本包的 `dist/` 作为静态 ESM 文件自行托管。`examples/` 提供完整的原生 HTML 示例；修改 `examples/config.js` 中的可信控制面 `issuer`、品牌名称和语言后，将 `examples/` 和 `dist/` 按原目录关系部署到 HTTPS 站点。
+安装后从 `@soln/custom-login-sdk` 导入客户端，将 SDK 调用绑定到自己的表单组件。
+
+## 使用完整 demo
+
+`examples/` 提供已完整接入 SDK 的原生 HTML 示例，配套的 `dist/` 为编译好的静态 ESM 模块。修改 `examples/config.js` 中的可信控制面 `issuer`、品牌名称和语言后，将 `examples/` 和 `dist/` 按原目录关系部署到 HTTPS 站点，无需手动生成或安装 `.tgz`。
 
 示例已完整接入 SDK。各接入位置使用编号英文注释 `SOLN INTEGRATION 1–9` 标出，涵盖配置、初始化、表单绑定、验证码、密码登录、首次设置密码、会话衔接及错误状态；对应清单见 [`examples/README.md`](examples/README.md)。按这些位置将调用接入自己的 UI 即可，品牌和样式可独立修改。
 
@@ -122,7 +123,7 @@ if (verified.nextStep === 'set_password') {
 
 ## English integration notes
 
-This is a UI-independent browser SDK for tenant-hosted login pages. Build and distribute the package or its ESM output; it has not been published to npm. Configure a trusted HTTPS control-plane issuer in your application, never from untrusted URL input. Edit Custom Login Page URL in System Management → Organization Profile (`/system/organization`), or use the CLI above. The control plane stores the URL as tenant login configuration; leave it empty to restore the default page. Tenant page content remains self-hosted.
+This is a UI-independent browser SDK for tenant-hosted login pages. Install it with `npm i @soln/custom-login-sdk` and import the client into your frontend. The complete static demo already includes the compiled SDK. Configure a trusted HTTPS control-plane issuer in your application, never from untrusted URL input. Edit Custom Login Page URL in System Management → Organization Profile (`/system/organization`), or use the CLI above. The control plane stores the URL as tenant login configuration; leave it empty to restore the default page. Tenant page content remains self-hosted.
 
 The SDK reads a ten-minute transaction ID from the launch fragment, removes it from the address bar, and calls the documented JSON endpoints without cross-site cookies. All account identity and tenant selection are server-controlled. Passwords, email codes, captcha enforcement, and initial password setup reuse Soln authentication. A successful result contains a short-lived, single-use completion URL, not a session token. Navigate with `complete()` to bind the control-plane session in the original browser and continue OAuth back to the Runtime.
 

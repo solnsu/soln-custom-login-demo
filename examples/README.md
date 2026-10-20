@@ -4,10 +4,19 @@ This demo already implements the complete SDK integration. The numbered English
 `SOLN INTEGRATION` comments identify the code to add when adapting your own page.
 Keep the working logic and replace the presentation with your own components.
 
+For your own frontend project, install the SDK:
+
+```sh
+npm i @soln/custom-login-sdk
+```
+
+The static demo already includes the compiled SDK in `dist/`. Deploy `examples/`
+and `dist/` together without changing their relative paths.
+
 | Step | Location | What to configure or carry into your page |
 | --- | --- | --- |
 | 1 | `config.js` | Set the trusted HTTPS control-plane `issuer`. Deploy your page over HTTPS and register its final URL in `/system/organization` → Custom Login Page URL. Set `workspaceLoginUrl` to your Runtime's HTTPS `/auth/start` URL if users will open the custom page directly. |
-| 2 | `login.js` import; `index.html` module tag | Import the SDK and load your integration module once. Static deployments must include `dist/` at the relative path used here; bundler projects can import `@soln/custom-login-sdk` after installing the supplied package. |
+| 2 | `login.js` import; `index.html` module tag | Import the SDK and load your integration module once. Static deployments must include `dist/` at the relative path used here; bundler projects can import `@soln/custom-login-sdk` after running `npm i @soln/custom-login-sdk`. |
 | 3 | `login.js`, `createSolnLoginClient()` | Create one client before other code changes the launch fragment. The SDK manages the supplied transaction ID. |
 | 4 | `login.js`, `getContext()` | Validate the transaction and restore required password setup before enabling the form. |
 | 5 | `index.html` fields; `login.js` selectors and `setMode()` | Bind your component values for email, password, email code, and new password. Preserve the three form modes and equivalent field validation. |
